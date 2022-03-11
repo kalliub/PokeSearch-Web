@@ -32,6 +32,12 @@ const PokemonInfo = ({ info }) => {
         <div style={{ marginLeft: 20 }}>
           <PokemonDetail title="General Info">
             <li type="none">
+              <b>Type</b>:{" "}
+              {info.types.map(({ type }, index) => {
+                return `${index !== 0 ? ", " : ""}${type.name.toUpperCase()}`;
+              })}
+            </li>
+            <li type="none">
               <b>Weight</b>: {info.weight / 10} kgs
             </li>
             <li type="none">
@@ -43,13 +49,39 @@ const PokemonInfo = ({ info }) => {
           </PokemonDetail>
 
           <PokemonDetail title="Abilities">
-            {info.abilities.map((ab) => (
+            {info.abilities.map(({ ability }) => (
               <b>
                 <li type="none">
-                  {String(ab.ability.name).charAt(0).toUpperCase()}
-                  {String(ab.ability.name).slice(1)}
+                  {String(ability.name).charAt(0).toUpperCase()}
+                  {String(ability.name).slice(1)}
                 </li>
               </b>
+            ))}
+          </PokemonDetail>
+
+          <PokemonDetail title="Held Items">
+            {info.held_items.length === 0 && "No items"}
+            {info.held_items.map((item) => (
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "row",
+                  alignItems: "center",
+                  marginBottom: 5,
+                }}
+              >
+                <img
+                  src={item.sprites.default}
+                  alt="item"
+                  style={{ transform: "scale(110%)", marginRight: 10 }}
+                />
+                <>
+                  <li type="none">
+                    {String(item.name).charAt(0).toUpperCase()}
+                    {String(item.name).slice(1)}
+                  </li>
+                </>
+              </div>
             ))}
           </PokemonDetail>
         </div>
