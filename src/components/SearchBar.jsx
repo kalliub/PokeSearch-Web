@@ -17,6 +17,12 @@ const SearchBar = ({ onSubmitInfo }) => {
 
     const [infoJson, infoRes] = await getPokemon({
       name: searchText,
+    }).catch((res) => {
+      setWarningMessage(
+        "Unfortunately there was a server error. Try again later."
+      );
+      setLoading(false);
+      return false;
     });
 
     if (infoRes.status === 404) {
@@ -37,7 +43,6 @@ const SearchBar = ({ onSubmitInfo }) => {
         display: "flex",
         flexDirection: "column",
         alignSelf: "center",
-        transform: "scale(150%)",
         margin: "10px 0px",
       }}
     >
@@ -45,6 +50,8 @@ const SearchBar = ({ onSubmitInfo }) => {
         style={{
           display: "flex",
           flexDirection: "row",
+          justifyContent: "center",
+          transform: "scale(120%)",
         }}
       >
         <TextInput
